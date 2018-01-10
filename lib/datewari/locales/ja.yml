@@ -1,0 +1,15 @@
+ja:
+  date_paginate:
+    previous_label: "前へ"
+    next_label: "次へ"
+    page_gap: "&hellip;"
+    link_separator: "|"
+    yearly_format: "%Y"
+    monthly_format: "%Y-%m"
+    weekly_format: "%Y-%m-%d"
+    daily_format: "%Y-%m-%d"
+    page_entries_info:
+      single_page:
+        zero:  "<b>0</b> 件"
+        other: "<b>%{total}</b> 件"
+      multi_page: "<b>%{total}</b> 件中 <b>%{current}</b> 件を表示"

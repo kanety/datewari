@@ -1,0 +1,23 @@
+<h1>Yearly</h1>
+<%= date_page_entries_info @yearly_users %>
+<%= date_paginate @yearly_users %>
+
+<h1>Monthly</h1>
+<%= date_page_entries_info @monthly_users %>
+<%= date_paginate @monthly_users %>
+
+<h1>Weekly</h1>
+<%= date_page_entries_info @weekly_users %>
+<%= date_paginate @weekly_users, outer_window: 1, inner_window: 1, page_gap: ' --- ', link_separator: ' / ', previous_label: 'PREV', next_label: 'NEXT' %>
+
+<h1>Daily</h1>
+<%= date_page_entries_info @daily_users %>
+<%= date_paginate @daily_users, outer_window: 0, inner_window: 0 %>
+
+<h1>Empty</h1>
+<%= date_page_entries_info @empty_users %>
+<%= date_paginate @empty_users %>
+
+<h1>One</h1>
+<%= date_page_entries_info @one_users %>
+<%= date_paginate @one_users %>
