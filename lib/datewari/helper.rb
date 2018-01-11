@@ -11,18 +11,13 @@ module Datewari
         config[key] ||= I18n.t("#{I18N_KEY}.#{key}").html_safe
       end
 
-      [:render_previous_link, :render_next_link, :render_date_link, :render_gap].each do |key|
-        config[key] = true unless config.key?(key)
-      end
-
+      config[:page_links] = true unless config.key?(:page_links)
       config[:inner_window] ||= 4
       config[:outer_window] ||= 1
       config[:param_name] ||= :date
 
-      content_tag :div, class: 'pagination' do
-        renderer = config[:link_renderer] || LinkRenderer
-        renderer.new(config, rel.paginator, self).render
-      end
+      renderer = config[:renderer] || LinkRenderer
+      renderer.new(config, rel.paginator, self).render
     end
 
     def date_page_entries_info(rel)

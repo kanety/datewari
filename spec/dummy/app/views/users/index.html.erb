@@ -8,11 +8,11 @@
 
 <h1>Weekly</h1>
 <%= date_page_entries_info @weekly_users %>
-<%= date_paginate @weekly_users, outer_window: 1, inner_window: 1, page_gap: ' --- ', link_separator: ' / ', previous_label: 'PREV', next_label: 'NEXT' %>
+<%= date_paginate @weekly_users %>
 
 <h1>Daily</h1>
 <%= date_page_entries_info @daily_users %>
-<%= date_paginate @daily_users, outer_window: 0, inner_window: 0 %>
+<%= date_paginate @daily_users %>
 
 <h1>Empty</h1>
 <%= date_page_entries_info @empty_users %>
@@ -21,3 +21,8 @@
 <h1>One</h1>
 <%= date_page_entries_info @one_users %>
 <%= date_paginate @one_users %>
+
+<h1>With options</h1>
+<%= date_paginate @weekly_users, page_links: false %>
+<%= date_paginate @weekly_users, outer_window: 0, inner_window: 0 %>
+<%= date_paginate @weekly_users, outer_window: 1, inner_window: 1, page_gap: ' --- ', link_separator: ' / ', previous_label: 'PREV', next_label: 'NEXT' %>
