@@ -30,9 +30,10 @@ module Datewari
       i18n_key = "#{I18N_KEY}.page_entries_info"
 
       content_tag :div, class: 'pageEntryInfo' do
-        if paginator.pages.empty?
+        case paginator.pages.size
+        when 0
           I18n.t("#{i18n_key}.single_page.zero").html_safe
-        elsif paginator.pages.size == 1
+        when 1
           I18n.t("#{i18n_key}.single_page.other", total: paginator.total_entries).html_safe
         else
           I18n.t("#{i18n_key}.multi_page", current: paginator.current_entries, total: paginator.total_entries).html_safe
