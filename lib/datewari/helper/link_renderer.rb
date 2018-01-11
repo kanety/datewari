@@ -10,19 +10,27 @@ module Datewari
       def render
         return '' if @paginator.pages.size < 2
 
-        parts = PartsBuilder.new(@config, @paginator).build
-        parts.map { |part|
-          case part
-          when :prev
-            prev_link if @config[:render_previous_link]
-          when :next
-            next_link if @config[:render_next_link]
-          when :gap
-            gap if @config[:render_gap]
-          else
-            date_link(part) if @config[:render_date_link]
-          end
-        }.compact.join(separator).html_safe
+        container do
+          parts = PartsBuilder.new(@config, @paginator).build
+          parts.map { |part|
+            case part
+            when :prev
+              prev_link
+            when :next
+              next_link
+            when :gap
+              gap if @config[:page_links]
+            else
+              date_link(part) if @config[:page_links]
+            end
+          }.compact.join(separator).html_safe
+        end
+      end
+
+      def container
+        content_tag :div, class: 'pagination' do
+          yield
+        end
       end
 
       def prev_link
@@ -76,16 +84,16 @@ module Datewari
 
       private
 
-      def url_for(*args)
-        @template.url_for(*args)
+      def url_for(*args, &block)
+        @template.url_for(*args, &block)
       end
 
-      def content_tag(*args)
-        @template.content_tag(*args)
+      def content_tag(*args, &block)
+        @template.content_tag(*args, &block)
       end
 
-      def link_to(*args)
-        @template.link_to(*args)
+      def link_to(*args, &block)
+        @template.link_to(*args, &block)
       end
     end
   end
