@@ -10,12 +10,7 @@ module Datewari
       def build
         pages = @paginator.pages
         index = @paginator.current_index
-        min = 0
-        max = pages.size - 1
-
-        lefts = left_indices(@outer, min, max)
-        rights = right_indices(@outer, min, max)
-        centers = center_indices(index, @inner, min, max)
+        lefts, rights, centers = page_indices(pages, index)
 
         parts = [:prev]
 
@@ -39,44 +34,43 @@ module Datewari
 
         parts << :next
 
-        parts.map { |part|
-          if part.is_a?(Integer)
-            pages[part]
-          else
-            part
-          end
-        }.compact
-      end
-
-      def left_indices(outer, min, max)
-        if outer > 0
-          (min .. range(outer - 1, min, max)).to_a
-        else
-          []
-        end
-      end
-
-      def right_indices(outer, min, max)
-        if outer > 0
-          (range(max - outer + 1, min, max) .. max).to_a
-        else
-          []
-        end
-      end
-
-      def center_indices(index, inner, min, max)
-        if inner >= 0
-          (range(index - inner, min, max) .. range(index + inner, min, max)).to_a
-        else
-          []
-        end
+        parts.map { |part| part.is_a?(Integer) ? pages[part] : part }.compact
       end
 
       private
 
-      def range(value, min, max)
-        if value < min
-          min
+      def page_indices(pages, index)
+        max = pages.size - 1
+        return left_indices(@outer, max), right_indices(@outer, max), center_indices(@inner, index, max)
+      end
+
+      def left_indices(outer, max)
+        if outer > 0
+          (0 .. range(outer - 1, max)).to_a
+        else
+          []
+        end
+      end
+
+      def right_indices(outer, max)
+        if outer > 0
+          (range(max - outer + 1, max) .. max).to_a
+        else
+          []
+        end
+      end
+
+      def center_indices(inner, index, max)
+        if inner >= 0
+          (range(index - inner, max) .. range(index + inner, max)).to_a
+        else
+          []
+        end
+      end
+
+      def range(value, max)
+        if value < 0
+          0
         elsif value > max
           max
         else

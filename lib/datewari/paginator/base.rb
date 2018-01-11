@@ -1,93 +1,66 @@
 module Datewari
-  module Paginator
+  class Paginator
     class Base
-      attr_accessor :scope, :date
+      class_attribute :cast_function, :date_format
 
       def initialize(rel, column, order, options)
-        @scope = (options[:scope] || :monthly).to_sym
-        @query = Query.new(rel, column, order)
-        @date = Util.parse_date(options[:date]) || pages.first || Date.today
-      end
-
-      def paginate
-        @query.paginate(*date_range)
-      end
-
-      def total_entries
-        @total_entries ||= @query.total_entries
-      end
-
-      def current_entries
-        @current_entries ||= @query.current_entries(*date_range)
-      end
-
-      def date_range
-        @date_range ||= send("date_range_for_#{@scope}")
+        @rel = rel
+        @column = column
+        @order = order
+        @scope = options[:scope]
       end
 
       def pages
-        @pages ||= send("pages_for_#{@scope}")
+        send("pages_for_#{@scope}")
       end
 
-      def current_index
-        @current_index ||=
-          if pages.empty?
-            0
-          elsif (i = pages.index(date_range.first.to_date))
-            i
-          else
-            pages.size - 1
-          end
+      def paginate(start_date, end_date)
+        @rel.where("#{quoted_column} BETWEEN ? AND ?", start_date, end_date)
+            .order("#{quoted_column} #{@order.to_s.upcase}")
       end
 
-      def current_date
-        pages[current_index]
-      end
-
-      def prev_date
-        if current_index > 0
-          pages[current_index - 1]
-        else
-          nil
-        end
-      end
-
-      def next_date
-        if current_index < pages.size - 1
-          pages[current_index + 1]
-        else
-          nil
-        end
+      def total_entries
+        @rel.count
       end
 
       private
 
-      def date_range_for_yearly
-        [@date.to_time.beginning_of_year, @date.to_time.end_of_year]
-      end
-
-      def date_range_for_monthly
-        [@date.to_time.beginning_of_month, @date.to_time.end_of_month]
-      end
-
-      def date_range_for_weekly
-        [@date.to_time.beginning_of_week, @date.to_time.end_of_week]
-      end
-
-      def date_range_for_daily
-        [@date.to_time.beginning_of_day, @date.to_time.end_of_day]
+      def quoted_column
+        table_column = if @column.to_s.include?('.')
+                         @column
+                       else
+                         "#{@rel.klass.table_name}.#{@column}"
+                       end
+        @rel.klass.connection.quote_table_name(table_column)
       end
 
       def pages_for_yearly
+        dates = pluck_dates(self.class.cast_function, self.class.date_format[:yearly])
+        dates.map { |date| Date.parse(date) }
       end
 
       def pages_for_monthly
+        dates = pluck_dates(self.class.cast_function, self.class.date_format[:monthly])
+        dates.map { |date| Date.parse(date) }
       end
 
       def pages_for_weekly
+        dates = pluck_dates(self.class.cast_function, self.class.date_format[:weekly])
+        dates.map { |date| Date.commercial(*date.split('-').map(&:to_i)) }
       end
 
       def pages_for_daily
+        dates = pluck_dates(self.class.cast_function, self.class.date_format[:daily])
+        dates.map { |date| Date.parse(date) }
+      end
+
+      def pluck_dates(function, format)
+        date_sql = "#{function}(#{quoted_column}, '#{format}')"
+        @rel.limit(nil)
+            .offset(nil)
+            .group(date_sql)
+            .reorder("#{date_sql} #{@order}")
+            .pluck(date_sql)
       end
     end
   end

@@ -14,7 +14,7 @@ describe UsersController, type: :controller do
     end
 
     it 'with invalid date' do
-      get :index, params: { date: 100.days.after }
+      get :index, params: { date: 100.days.since }
       expect(response.body).to include("href")
   
       get :index, params: { date: 2000.days.ago }
