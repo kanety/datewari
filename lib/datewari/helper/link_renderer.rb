@@ -27,7 +27,7 @@ module Datewari
 
       def prev_link
         if (date = @paginator.prev_date)
-          link_to @config[:previous_label], url(date), class: 'previous_page'
+          link_to @config[:previous_label], url(date), class: 'previous_page', rel: 'prev'
         else
           content_tag :span, @config[:previous_label], class: 'previous_page disabled'
         end
@@ -35,7 +35,7 @@ module Datewari
 
       def next_link
         if (date = @paginator.next_date)
-          link_to @config[:next_label], url(date), class: 'next_page'
+          link_to @config[:next_label], url(date), class: 'next_page', rel: 'next'
         else
           content_tag :span, @config[:next_label], class: 'next_page disabled'
         end
