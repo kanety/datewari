@@ -26,3 +26,4 @@
 <%= date_paginate @weekly_users, page_links: false %>
 <%= date_paginate @weekly_users, outer_window: 0, inner_window: 0 %>
 <%= date_paginate @weekly_users, outer_window: 1, inner_window: 1, page_gap: ' --- ', link_separator: ' / ', previous_label: 'PREV', next_label: 'NEXT' %>
+<%= date_paginate @weekly_users, params: { param1: 'param1', param2: 'param2' } %>

@@ -72,10 +72,11 @@ Available options:
 * `monthly_format`: date format for monthly pagination.
 * `weekly_format`: date format for weekly pagination.
 * `daily_format`: date format for daily pagination.
-* `inner_window`: window size around current page link. default: 4.
-* `outer_window`: window size around first page and last page link. default: 1.
-* `param_name`: query parameter name. default: date.
-* `page_links`: render page links or not. default: true.
+* `inner_window`: window size around current page link. default: `4`.
+* `outer_window`: window size around first page and last page link. default: `1`.
+* `page_links`: render page links or not. default: `true`.
+* `param_name`: query parameter name. default: `date`.
+* `params`: optional parameters for page links.
 * `renderer`: custom link render class.
 
 ### Render page info
