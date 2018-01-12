@@ -79,7 +79,8 @@ module Datewari
                      else
                        date_param(date)
                      end
-        url_for(@config[:param_name] => date_param)
+        request_params = @template.request.params.except(:controller, :action)
+        url_for(request_params.merge(@config[:params]).merge(@config[:param_name] => date_param))
       end
 
       private

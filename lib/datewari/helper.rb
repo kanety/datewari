@@ -15,6 +15,7 @@ module Datewari
       config[:inner_window] ||= 4
       config[:outer_window] ||= 1
       config[:param_name] ||= :date
+      config[:params] ||= {}
 
       renderer = config[:renderer] || LinkRenderer
       renderer.new(config, rel.paginator, self).render
