@@ -7,7 +7,10 @@ An ActiveRecord extension to build date oriented pagination links such as monthl
 * ruby 2.3+
 * rails 5.0+ (activerecord, activesupport, actionview)
 
-Currently MySQL and PostgreSQL are supported.
+Following ActiveRecord adapters are supported:
+
+* mysql
+* postgresql
 
 ## Installation
 
