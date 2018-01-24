@@ -3,12 +3,10 @@ require_relative 'helper/parts_builder'
 
 module Datewari
   module Helper
-    I18N_KEY = 'date_paginate'
-
     def date_paginate(rel, config = {})
       [:previous_label, :next_label, :page_gap, :link_separator,
        :yearly_format,  :monthly_format, :weekly_format, :daily_format].each do |key|
-        config[key] ||= I18n.t("#{I18N_KEY}.#{key}").html_safe
+        config[key] ||= I18n.t("date_paginate.#{key}").html_safe
       end
 
       config[:page_links] = true unless config.key?(:page_links)
@@ -23,7 +21,7 @@ module Datewari
 
     def date_page_entries_info(rel)
       paginator = rel.paginator
-      i18n_key = "#{I18N_KEY}.page_entries_info"
+      i18n_key = "date_paginate.page_entries_info"
 
       content_tag :div, class: 'pageEntryInfo' do
         case paginator.pages.size
