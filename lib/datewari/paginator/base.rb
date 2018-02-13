@@ -16,7 +16,7 @@ module Datewari
 
       def paginate(start_date, end_date)
         @rel.where("#{quoted_column} BETWEEN ? AND ?", start_date, end_date)
-            .order("#{quoted_column} #{@order.to_s.upcase}")
+            .order(Arel.sql("#{quoted_column} #{@order.to_s.upcase}"))
       end
 
       def total_entries
@@ -59,8 +59,8 @@ module Datewari
         @rel.limit(nil)
             .offset(nil)
             .group(date_sql)
-            .reorder("#{date_sql} #{@order}")
-            .pluck(date_sql)
+            .reorder(Arel.sql("#{date_sql} #{@order}"))
+            .pluck(Arel.sql(date_sql))
       end
     end
   end
