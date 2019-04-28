@@ -25,8 +25,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "mysql2"
   spec.add_development_dependency "pg"
   spec.add_development_dependency "rspec-rails"
-  spec.add_development_dependency "rails-controller-testing"
   spec.add_development_dependency "simplecov"
-  spec.add_development_dependency "pry-rails"
-  spec.add_development_dependency "pry-byebug"
 end
