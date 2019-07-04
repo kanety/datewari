@@ -29,6 +29,9 @@ module Datewari
                when 'PostgreSQL'
                  require_relative 'paginator/postgresql'
                  Postgresql.new(rel, column, order, options)
+               when 'PostGIS'
+                 require_relative 'paginator/postgresql'
+                 Postgresql.new(rel, column, order, options)
                when 'Mysql2'
                  require_relative 'paginator/mysql'
                  Mysql.new(rel, column, order, options)
