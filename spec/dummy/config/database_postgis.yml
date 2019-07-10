@@ -1,0 +1,16 @@
+default: &default
+  adapter: postgis
+  pool: 10
+  timeout: 5000
+
+development:
+  <<: *default
+  database: datewari_development
+
+test:
+  <<: *default
+  database: datewari_test
+
+production:
+  <<: *default
+  database: datewari_production

@@ -26,7 +26,7 @@ module Datewari
       @scope = options[:scope].to_sym
 
       @query = case rel.klass.connection.adapter_name
-               when 'PostgreSQL'
+               when 'PostgreSQL', 'PostGIS'
                  require_relative 'paginator/postgresql'
                  Postgresql.new(rel, column, order, options)
                when 'Mysql2'
