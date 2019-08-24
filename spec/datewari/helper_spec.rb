@@ -1,26 +1,24 @@
-describe UsersController, type: :controller do
-  render_views
-
+describe UsersController, type: :request do
   context 'renders pagination links' do
     it 'with date' do
-      get :index
+      get users_path
       expect(response.body).to include("href")
   
-      get :index, params: { date: 500.days.ago }
+      get users_path, params: { date: 500.days.ago }
       expect(response.body).to include("href")
 
-      get :index, params: { date: 1000.days.ago }
+      get users_path, params: { date: 1000.days.ago }
       expect(response.body).to include("href")
     end
 
     it 'with invalid date' do
-      get :index, params: { date: 100.days.since }
+      get users_path, params: { date: 100.days.since }
       expect(response.body).to include("href")
   
-      get :index, params: { date: 2000.days.ago }
+      get users_path, params: { date: 2000.days.ago }
       expect(response.body).to include("href")
 
-      get :index, params: { date: 'ABCDE' }
+      get users_path, params: { date: 'ABCDE' }
       expect(response.body).to include("href")
     end
   end
