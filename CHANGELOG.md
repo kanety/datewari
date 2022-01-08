@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.1.0
+
+* Drop support for ruby 2.3.
+
 ## 1.0.3
 
 * Support postgis adapter.
