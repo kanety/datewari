@@ -44,6 +44,9 @@ jobs:
             gemfile: rails70
           - ruby: 2.6
             gemfile: rails71
+          - ruby: 2.7
+            gemfile: rails71
+            database: postgis
           - ruby: 3.0
             gemfile: rails50
           - ruby: 3.0
