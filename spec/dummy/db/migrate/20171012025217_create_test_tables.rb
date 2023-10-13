@@ -1,4 +1,4 @@
-class CreateTestTables < ActiveRecord::Migration[5.0]
+class CreateTestTables < ActiveRecord::Migration::Current
   def change
     create_table :users do |t|
       t.references :group
