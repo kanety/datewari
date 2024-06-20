@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'helper/link_renderer'
 require_relative 'helper/parts_builder'
 
