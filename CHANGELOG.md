@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.1.1
+
+* Add `frozen_string_literal: true`.
+
 ## 1.1.0
 
 * Drop support for ruby 2.3.
