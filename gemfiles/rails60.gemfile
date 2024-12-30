@@ -1,6 +1,20 @@
 source 'https://rubygems.org'
 
 gem "rails", "~> 6.0.0"
+gem "mysql2"
+gem "pg"
+
+if ENV['DATABASE'] == 'postgis'
+  gem "activerecord-postgis-adapter"
+end
+
 gem "psych", "~> 3.3.0"
+
+if RUBY_VERSION >= "3.4"
+  gem "base64"
+  gem "bigdecimal"
+  gem "drb"
+  gem "mutex_m"
+end
 
 gemspec path: "../"

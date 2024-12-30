@@ -1,5 +1,11 @@
 source 'https://rubygems.org'
 
 gem "rails", "~> 7.1.0"
+gem "mysql2"
+gem "pg"
+
+if ENV['DATABASE'] == 'postgis'
+  gem "activerecord-postgis-adapter"
+end
 
 gemspec path: "../"
