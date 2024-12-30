@@ -8,4 +8,11 @@ if ENV['DATABASE'] == 'postgis'
   gem "activerecord-postgis-adapter"
 end
 
+if RUBY_VERSION >= "3.4"
+  gem "base64"
+  gem "bigdecimal"
+  gem "drb"
+  gem "mutex_m"
+end
+
 gemspec path: "../"
